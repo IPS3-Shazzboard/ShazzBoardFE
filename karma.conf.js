@@ -35,7 +35,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Firefox"],
+    browsers: ["Firefox", "FirefoxDeveloper"],
     singleRun: false,
     restartOnFileChange: true,
   });
