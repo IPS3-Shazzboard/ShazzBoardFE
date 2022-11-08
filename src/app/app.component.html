@@ -14,20 +14,18 @@
   </div>
 </nav>
 
-<div *ngFor="let song of songs" class="card mb-3" style="max-width: 20%">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{ song.coverArt }}" class="img-fluid rounded-start" />
+<div class="song-container">
+  <div *ngFor="let song of songs" class="song-card">
+    <div class="song-card-image-container">
+      <img class="song-card-image" src="{{ song.coverArt }}" />
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <p class="card-text">{{ song.name }}</p>
-        <p class="card-text">{{ song.artist }}</p>
-        <p class="card-text">
-          <small class="text-muted">{{ song.duration }}</small>
-        </p>
-        <a href="#" class="btn btn-primary">Show more</a>
-      </div>
+    <div class="song-description-container">
+      <p class="song-title">{{ song.name }}</p>
+      <p class="song-artist">{{ song.artist }}</p>
+      <p class="song-duration">
+        <small class="text-muted">{{ song.duration }}</small>
+      </p>
+      <!-- <a href="#" class="btn btn-primary">Show more</a> -->
     </div>
   </div>
 </div>
