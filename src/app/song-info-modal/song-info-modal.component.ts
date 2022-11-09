@@ -6,9 +6,9 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
   templateUrl: './song-info-modal.component.html',
   styleUrls: ['./song-info-modal.component.css'],
 })
-export class ModalComponent {
+export class SongInfoModalComponent {
   name: string | null = null;
   artist: string | null = null;
   duration: string | null = null;
-  constructor(public modalRef: MdbModalRef<ModalComponent>) {}
+  constructor(public modalRef: MdbModalRef<SongInfoModalComponent>) {}
 }
