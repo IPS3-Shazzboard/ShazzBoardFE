@@ -15,7 +15,11 @@
 </nav>
 
 <div class="song-container">
-  <div *ngFor="let song of songs" class="song-card" (click)="openModal(song)">
+  <div
+    *ngFor="let song of songs"
+    class="song-card"
+    (click)="openSongInfoModal(song)"
+  >
     <div class="song-card-image-container">
       <img class="song-card-image" src="{{ song.coverArt }}" />
     </div>
