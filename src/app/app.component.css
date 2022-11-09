@@ -1,6 +1,6 @@
 :host {
-  --card-width: 40em;
-  --card-height: 10em;
+  --card-width: 32em;
+  --card-height: 8em;
   --card-padding: 0.1em;
 }
 
@@ -17,8 +17,13 @@
   width: var(--card-width);
   height: var(--card-height);
   border: 0.1em solid rgba(0, 0, 0, 2);
+  border-radius: 0.2em;
   display: flex;
   flex-direction: row;
+}
+
+.song-card:hover {
+  background-color: gainsboro;
 }
 
 .song-card-image-container {
@@ -38,6 +43,11 @@
   display: flex;
   flex-direction: column;
   padding: var(--card-padding);
+}
+
+.dummy-card {
+  height: 0;
+  width: var(--card-width);
 }
 
 .song-title,
