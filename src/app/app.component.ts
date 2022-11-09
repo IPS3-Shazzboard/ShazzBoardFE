@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from './song-info-modal/song-info-modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Song } from './song';
 import { SongService } from './song.service';

@@ -5,10 +5,11 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from './song-info-modal/song-info-modal.component';
+import { ManualAddSongModalComponent } from './manual-add-song-modal/manual-add-song-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent],
+  declarations: [AppComponent, ModalComponent, ManualAddSongModalComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, MdbModalModule],
   providers: [],
   bootstrap: [AppComponent],
