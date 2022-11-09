@@ -4,7 +4,7 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 @Component({
   selector: 'app-modal',
   templateUrl: './song-info-modal.component.html',
-  styleUrls: ['./song-info-modal.component.css'],
+  styleUrls: ['./song-info-modal.component.scss'],
 })
 export class SongInfoModalComponent {
   name: string | null = null;
