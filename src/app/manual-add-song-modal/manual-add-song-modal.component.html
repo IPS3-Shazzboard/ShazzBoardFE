@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Song info</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Manually add song</h5>
   <button
     type="button"
     class="btn-close"
@@ -8,9 +8,20 @@
   ></button>
 </div>
 <div class="modal-body">
-  <p><strong>Name</strong>: {{ name }}</p>
-  <p><strong>Artist</strong>: {{ artist }}</p>
-  <p><strong>Duration</strong>: {{ duration }}</p>
+  <mdb-form-control>
+    <input mdbInput type="text" id="formInputSongName" class="form-control" />
+    <label mdbLabel class="form-label" for="formInputSongName">Song name</label>
+  </mdb-form-control>
+  <mdb-form-control>
+    <input mdbInput type="text" id="formInputSongName" class="form-control" />
+    <label mdbLabel class="form-label" for="formInputSongName"
+      >Artist name</label
+    >
+  </mdb-form-control>
+  <mdb-form-control>
+    <input mdbInput type="text" id="formInputSongName" class="form-control" />
+    <label mdbLabel class="form-label" for="formInputSongName">Duration</label>
+  </mdb-form-control>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
