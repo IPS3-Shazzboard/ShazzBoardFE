@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SongInfoModalComponent } from './song-info-modal/song-info-modal.component';
+import { ManualAddSongModalComponent } from './manual-add-song-modal/manual-add-song-modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Song } from './song';
 import { SongService } from './song.service';
@@ -13,7 +14,8 @@ import { SongService } from './song.service';
 export class AppComponent implements OnInit {
   title = 'ShazzBoardFE';
   public songs: Song[] | undefined;
-  modalRef: MdbModalRef<SongInfoModalComponent> | null = null;
+  modalSongInfoRef: MdbModalRef<SongInfoModalComponent> | null = null;
+  modalManualAddSongRef: MdbModalRef<ManualAddSongModalComponent> | null = null;
 
   constructor(
     private songService: SongService,
@@ -36,8 +38,14 @@ export class AppComponent implements OnInit {
   }
 
   openSongInfoModal(item: any) {
-    this.modalRef = this.modalService.open(SongInfoModalComponent, {
+    this.modalSongInfoRef = this.modalService.open(SongInfoModalComponent, {
       data: { name: item.name, artist: item.artist, duration: item.duration },
     });
+  }
+
+  openManualAddSongModal() {
+    this.modalManualAddSongRef = this.modalService.open(
+      ManualAddSongModalComponent
+    );
   }
 }
