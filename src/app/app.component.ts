@@ -35,7 +35,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openModal() {
-    this.modalRef = this.modalService.open(ModalComponent);
+  openModal(item: any) {
+    this.modalRef = this.modalService.open(ModalComponent, {
+      data: { name: item.name, artist: item.artist, duration: item.duration },
+    });
   }
 }

@@ -6,8 +6,9 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
+  name: string | null = null;
+  artist: string | null = null;
+  duration: string | null = null;
   constructor(public modalRef: MdbModalRef<ModalComponent>) {}
-
-  ngOnInit(): void {}
 }
