@@ -7,25 +7,57 @@
     (click)="modalRef.close()"
   ></button>
 </div>
-<div class="modal-body">
-  <mdb-form-control>
-    <input mdbInput type="text" id="formInputSongName" class="form-control" />
-    <label mdbLabel class="form-label" for="formInputSongName">Song name</label>
-  </mdb-form-control>
-  <mdb-form-control>
-    <input mdbInput type="text" id="formInputSongName" class="form-control" />
-    <label mdbLabel class="form-label" for="formInputSongName"
-      >Artist name</label
-    >
-  </mdb-form-control>
-  <mdb-form-control>
-    <input mdbInput type="text" id="formInputSongName" class="form-control" />
-    <label mdbLabel class="form-label" for="formInputSongName">Duration</label>
-  </mdb-form-control>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
-    Close
-  </button>
-  <button type="button" class="btn btn-primary">Delete entry</button>
-</div>
+<form (ngSubmit)="addSongEntry()">
+  <div class="modal-body">
+    <mdb-form-control>
+      <input
+        mdbInput
+        type="text"
+        id="name"
+        class="form-control"
+        [(ngModel)]="song.name"
+        name="name"
+      />
+      <label mdbLabel class="form-label" for="name">Song name</label>
+    </mdb-form-control>
+    <mdb-form-control>
+      <input
+        mdbInput
+        type="text"
+        id="artist"
+        class="form-control"
+        [(ngModel)]="song.artist"
+        name="artist"
+      />
+      <label mdbLabel class="form-label" for="artist">Artist name</label>
+    </mdb-form-control>
+    <mdb-form-control>
+      <input
+        mdbInput
+        type="text"
+        id="duration"
+        class="form-control"
+        [(ngModel)]="song.duration"
+        name="duration"
+      />
+      <label mdbLabel class="form-label" for="duration">Duration</label>
+    </mdb-form-control>
+    <mdb-form-control>
+      <input
+        mdbInput
+        type="url"
+        id="coverArl"
+        class="form-control"
+        [(ngModel)]="song.coverArt"
+        name="coverArt"
+      />
+      <label mdbLabel class="form-label" for="coverArt">Cover URL</label>
+    </mdb-form-control>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+      Close
+    </button>
+    <button type="submit" class="btn btn-primary">Add entry</button>
+  </div>
+</form>

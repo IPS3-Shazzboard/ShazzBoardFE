@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
     this.songService.getSongs().subscribe({
       next: (response: Song[]) => {
         this.songs = response;
+        console.log(this.songs);
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);

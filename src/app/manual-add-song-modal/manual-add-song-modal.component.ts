@@ -1,5 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { Song } from '../song';
+import { SongService } from '../song.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-modal',
@@ -7,5 +11,24 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
   styleUrls: ['./manual-add-song-modal.component.scss'],
 })
 export class ManualAddSongModalComponent {
-  constructor(public modalRef: MdbModalRef<ManualAddSongModalComponent>) {}
+  song = new Song('', '', '', '');
+
+  constructor(
+    private songService: SongService,
+    private appComponent: AppComponent,
+    public modalRef: MdbModalRef<ManualAddSongModalComponent>
+  ) {}
+
+  addSongEntry(): void {
+    console.log('Current song:' + this.song);
+    this.songService.addSong(this.song).subscribe({
+      next: (response: Song) => {
+        console.log(response);
+        //this.appComponent.getSongs();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    });
+  }
 }
