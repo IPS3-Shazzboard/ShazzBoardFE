@@ -20,11 +20,10 @@ export class ManualAddSongModalComponent {
   ) {}
 
   addSongEntry(): void {
-    console.log('Current song:' + this.song);
     this.songService.addSong(this.song).subscribe({
       next: (response: Song) => {
         console.log(response);
-        //this.appComponent.getSongs();
+        this.appComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
