@@ -16,5 +16,11 @@
   <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
     Close
   </button>
-  <button type="button" class="btn btn-primary">Delete entry</button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="deleteSongEntry(); modalRef.close()"
+  >
+    Delete entry
+  </button>
 </div>

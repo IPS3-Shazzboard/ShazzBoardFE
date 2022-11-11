@@ -19,4 +19,8 @@ export class SongService {
   public addSong(song: Song): Observable<Song> {
     return this.http.post<Song>(`${this.apiServerUrl}/song/add`, song);
   }
+
+  public deleteSong(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/song/delete/${id}`);
+  }
 }

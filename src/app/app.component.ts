@@ -40,7 +40,12 @@ export class AppComponent implements OnInit {
 
   openSongInfoModal(item: any) {
     this.modalSongInfoRef = this.modalService.open(SongInfoModalComponent, {
-      data: { name: item.name, artist: item.artist, duration: item.duration },
+      data: {
+        id: item.id,
+        name: item.name,
+        artist: item.artist,
+        duration: item.duration,
+      },
     });
   }
 
