@@ -16,7 +16,6 @@
 
 .song-card {
   width: var(--card-width);
-  // aspect-ratio: 4 / 1;
   border: 0.1em solid rgba(0, 0, 0, 2);
   border-radius: 0.2em;
   display: flex;
@@ -30,17 +29,14 @@
 .song-card-image-container {
   padding: var(--card-padding);
   width: calc(25% - 2 * var(--card-padding));
-  // height: calc(100% - 2 * var(--card-padding));
 }
 
 .song-card-image {
-  //width: 10em;
   aspect-ratio: 1 / 1;
 }
 
 .song-description-container {
   width: calc(75% - 2 * 0.1em);
-  // height: calc(100% - 2 * 0.1em);
   display: flex;
   flex-direction: column;
   justify-content: center;
