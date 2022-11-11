@@ -38,6 +38,18 @@ export class AppComponent implements OnInit {
     });
   }
 
+  public addSong(newSong: Song) {
+    this.songService.addSong(newSong).subscribe({
+      next: (response: Song) => {
+        console.log(response);
+        this.getSongs();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+    });
+  }
+
   openSongInfoModal(item: any) {
     this.modalSongInfoRef = this.modalService.open(SongInfoModalComponent, {
       data: {

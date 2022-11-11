@@ -17,6 +17,10 @@
   </div>
 </nav>
 
+<app-manual-add-song-modal
+  (newSongEvent)="addSong($event)"
+></app-manual-add-song-modal>
+
 <div class="song-container">
   <div
     *ngFor="let song of songs"
