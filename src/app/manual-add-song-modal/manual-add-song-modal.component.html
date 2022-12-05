@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
   <h5 class="modal-title" id="exampleModalLabel">Manually add song</h5>
   <button
     type="button"
@@ -62,4 +62,60 @@
       Add entry
     </button>
   </div>
-</form>
+</form> -->
+
+<ng-container *ngIf="display$ | async as display">
+  <section [class.open]="display === 'open'" (click)="close()">
+    <div (click)="$event.stopPropagation()">
+      <button class="close" type="button" (click)="close()">X</button>
+      <form (ngSubmit)="addSongEntry()">
+        <div class="modal-body">
+          <input
+            mdbInput
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="song.name"
+            name="name"
+          />
+          <label mdbLabel class="form-label" for="name">Song name</label>
+          <input
+            mdbInput
+            type="text"
+            id="artist"
+            class="form-control"
+            [(ngModel)]="song.artist"
+            name="artist"
+          />
+          <label mdbLabel class="form-label" for="artist">Artist name</label>
+          <input
+            mdbInput
+            type="text"
+            id="duration"
+            class="form-control"
+            [(ngModel)]="song.duration"
+            name="duration"
+          />
+          <label mdbLabel class="form-label" for="duration">Duration</label>
+          <input
+            mdbInput
+            type="url"
+            id="coverArl"
+            class="form-control"
+            [(ngModel)]="song.coverArt"
+            name="coverArt"
+          />
+          <label mdbLabel class="form-label" for="coverArt">Cover URL</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary" (click)="close()">
+            Add entry
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</ng-container>

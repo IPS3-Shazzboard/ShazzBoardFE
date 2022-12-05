@@ -5,6 +5,7 @@ import { ManualAddSongModalComponent } from './manual-add-song-modal/manual-add-
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Song } from './song';
 import { SongService } from './song.service';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private modalService2: ModalService
   ) {}
 
   ngOnInit() {
@@ -50,8 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   openManualAddSongModal() {
-    this.modalManualAddSongRef = this.modalService.open(
-      ManualAddSongModalComponent
-    );
+    this.modalService2.open();
   }
 }
