@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
   <h5 class="modal-title" id="exampleModalLabel">Song info</h5>
   <button
     type="button"
@@ -23,4 +23,29 @@
   >
     Delete entry
   </button>
-</div>
+</div> -->
+
+<ng-container *ngIf="display$ | async as display">
+  <section [class.open]="display === 'open'" (click)="close()">
+    <div (click)="$event.stopPropagation()">
+      <button class="close" type="button" (click)="close()">X</button>
+      <div class="modal-body">
+        <p><strong>Name</strong>: {{ songName }}</p>
+        <p><strong>Artist</strong>: {{ songArtist }}</p>
+        <p><strong>Duration</strong>: {{ songDuration }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteSongEntry(); close()"
+        >
+          Delete entry
+        </button>
+      </div>
+    </div>
+  </section>
+</ng-container>

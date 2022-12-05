@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AppComponent } from '../app.component';
+import { SongInfoModalService } from '../song-info-modal.service';
 import { SongService } from '../song.service';
 
 @Component({
@@ -8,25 +10,36 @@ import { SongService } from '../song.service';
   templateUrl: './song-info-modal.component.html',
   styleUrls: ['./song-info-modal.component.scss'],
 })
-export class SongInfoModalComponent {
-  id: number | null = null;
-  name: string | null = null;
-  artist: string | null = null;
-  duration: string | null = null;
+export class SongInfoModalComponent implements OnInit {
+  @Input() songId!: number;
+  @Input() songName!: string;
+  @Input() songArtist!: string;
+  @Input() songDuration!: string;
+  @Input() songCoverArt!: string;
+  display$!: Observable<'open' | 'close'>;
   constructor(
     private songService: SongService,
-    public modalRef: MdbModalRef<SongInfoModalComponent>
+    private appComponent: AppComponent,
+    private modalService: SongInfoModalService
   ) {}
 
+  ngOnInit() {
+    this.display$ = this.modalService.watch();
+  }
+
   deleteSongEntry(): void {
-    console.log('id: ' + this.id);
-    this.songService.deleteSong(this.id!).subscribe({
+    this.songService.deleteSong(this.songId).subscribe({
       next: (response: void) => {
         console.log(response);
+        this.appComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
       },
     });
+  }
+
+  close() {
+    this.modalService.close();
   }
 }

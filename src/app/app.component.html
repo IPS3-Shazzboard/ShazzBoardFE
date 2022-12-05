@@ -18,6 +18,13 @@
 </nav>
 
 <div class="song-container">
+  <app-modal
+    [songId]="songId"
+    [songName]="songName"
+    [songArtist]="songArtist"
+    [songDuration]="songDuration"
+    [songCoverArt]="songCoverArt"
+  ></app-modal>
   <div
     *ngFor="let song of songs"
     class="song-card"
