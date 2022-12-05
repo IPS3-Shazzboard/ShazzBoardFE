@@ -1,10 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { Song } from '../song';
 import { SongService } from '../song.service';
 import { AppComponent } from '../app.component';
-import { ModalService } from '../modal.service';
+import { ManualAddSongModalService } from '../manual-add-song-modal.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,8 +18,7 @@ export class ManualAddSongModalComponent implements OnInit {
   constructor(
     private songService: SongService,
     private appComponent: AppComponent,
-    //public modalRef: MdbModalRef<ManualAddSongModalComponent>
-    private modalService: ModalService
+    private modalService: ManualAddSongModalService
   ) {}
 
   ngOnInit() {

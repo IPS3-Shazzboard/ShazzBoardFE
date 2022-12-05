@@ -1,11 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SongInfoModalComponent } from './song-info-modal/song-info-modal.component';
-import { ManualAddSongModalComponent } from './manual-add-song-modal/manual-add-song-modal.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { Component, OnInit } from '@angular/core';
 import { Song } from './song';
 import { SongService } from './song.service';
-import { ModalService } from './modal.service';
+import { ManualAddSongModalService } from './manual-add-song-modal.service';
 import { SongInfoModalService } from './song-info-modal.service';
 
 @Component({
@@ -16,8 +13,6 @@ import { SongInfoModalService } from './song-info-modal.service';
 export class AppComponent implements OnInit {
   title = 'ShazzBoardFE';
   public songs: Song[] | undefined;
-  modalSongInfoRef: MdbModalRef<SongInfoModalComponent> | null = null;
-  modalManualAddSongRef: MdbModalRef<ManualAddSongModalComponent> | null = null;
   songId!: number;
   songName!: string;
   songArtist!: string;
@@ -26,8 +21,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private modalService: MdbModalService,
-    private modalService2: ModalService,
+    private ManualAddSongModalService: ManualAddSongModalService,
     private songInfoModalService: SongInfoModalService
   ) {}
 
@@ -48,14 +42,6 @@ export class AppComponent implements OnInit {
   }
 
   openSongInfoModal(item: any) {
-    // this.modalService.open({
-    //   data: {
-    //     id: item.id,
-    //     name: item.name,
-    //     artist: item.artist,
-    //     duration: item.duration,
-    //   },
-    // });
     this.songId = item.id;
     this.songName = item.name;
     this.songArtist = item.artist;
@@ -65,6 +51,6 @@ export class AppComponent implements OnInit {
   }
 
   openManualAddSongModal() {
-    this.modalService2.open();
+    this.ManualAddSongModalService.open();
   }
 }
