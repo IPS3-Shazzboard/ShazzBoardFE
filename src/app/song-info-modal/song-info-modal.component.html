@@ -1,26 +1,24 @@
-<div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Song info</h5>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="modalRef.close()"
-  ></button>
-</div>
-<div class="modal-body">
-  <p><strong>Name</strong>: {{ name }}</p>
-  <p><strong>Artist</strong>: {{ artist }}</p>
-  <p><strong>Duration</strong>: {{ duration }}</p>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
-    Close
-  </button>
-  <button
-    type="button"
-    class="btn btn-primary"
-    (click)="deleteSongEntry(); modalRef.close()"
-  >
-    Delete entry
-  </button>
-</div>
+<ng-container *ngIf="display$ | async as display">
+  <section [class.open]="display === 'open'" (click)="close()">
+    <div (click)="$event.stopPropagation()">
+      <button class="close" type="button" (click)="close()">X</button>
+      <div class="modal-body">
+        <p><strong>Name</strong>: {{ songName }}</p>
+        <p><strong>Artist</strong>: {{ songArtist }}</p>
+        <p><strong>Duration</strong>: {{ songDuration }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteSongEntry(); close()"
+        >
+          Delete entry
+        </button>
+      </div>
+    </div>
+  </section>
+</ng-container>
