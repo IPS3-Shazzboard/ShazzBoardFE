@@ -4,6 +4,18 @@
   --card-padding: 0.1em;
 }
 
+.user-profile {
+  margin-inline: 1em;
+}
+
+.not-logged-in-text {
+  font-size: x-large;
+  display: flex;
+  height: 85%;
+  align-items: center;
+  justify-content: center;
+}
+
 .song-container {
   width: 100%;
   display: flex;

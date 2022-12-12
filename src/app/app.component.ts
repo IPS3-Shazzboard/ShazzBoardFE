@@ -4,6 +4,7 @@ import { Song } from './song';
 import { SongService } from './song.service';
 import { ManualAddSongModalService } from './manual-add-song-modal.service';
 import { SongInfoModalService } from './song-info-modal.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +22,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private ManualAddSongModalService: ManualAddSongModalService,
-    private songInfoModalService: SongInfoModalService
+    private manualAddSongModalService: ManualAddSongModalService,
+    private songInfoModalService: SongInfoModalService,
+    public auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -41,16 +43,16 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openSongInfoModal(item: any) {
-    this.songId = item.id;
+  openSongInfoModal(item: Song) {
     this.songName = item.name;
     this.songArtist = item.artist;
     this.songDuration = item.duration;
     this.songCoverArt = item.coverArt;
+    this.songId = item.id!;
     this.songInfoModalService.open();
   }
 
   openManualAddSongModal() {
-    this.ManualAddSongModalService.open();
+    this.manualAddSongModalService.open();
   }
 }

@@ -4,20 +4,28 @@
   </div>
   <div id="navbarMenu" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" (click)="openManualAddSongModal()">
+      <a
+        class="navbar-item"
+        (click)="openManualAddSongModal()"
+        *ngIf="auth.user$ | async as user"
+      >
         Add song (manual)
       </a>
     </div>
     <div class="navbar-end">
+      <div class="navbar-item">
+        <app-user-profile></app-user-profile>
+      </div>
       <div class="buttons">
-        <a class="button is-primary"> Sign up </a>
-        <a class="button is-light"> Log in </a>
+        <!-- <a class="button is-primary"> Sign up </a> -->
+        <!-- <a class="button is-light"> Log in </a> -->
+        <app-auth-button></app-auth-button>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="song-container">
+<div class="song-container" *ngIf="auth.user$ | async as user; else loggedOut">
   <app-modal
     [songId]="songId"
     [songName]="songName"
@@ -42,6 +50,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #loggedOut>
+  <div class="not-logged-in-text">Please log in first.</div></ng-template
+>
 
 <router-outlet></router-outlet>
 <app-manual-add-song-modal></app-manual-add-song-modal>
