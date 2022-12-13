@@ -1,0 +1,25 @@
+<div class="song-container">
+  <app-modal
+    [songId]="songId"
+    [songName]="songName"
+    [songArtist]="songArtist"
+    [songDuration]="songDuration"
+    [songCoverArt]="songCoverArt"
+  ></app-modal>
+  <div
+    *ngFor="let song of songs"
+    class="song-card"
+    (click)="openSongInfoModal(song)"
+  >
+    <div class="song-card-image-container">
+      <img class="song-card-image" src="{{ song.coverArt }}" />
+    </div>
+    <div class="song-description-container">
+      <div class="song-title">{{ song.name }}</div>
+      <div class="song-artist">{{ song.artist }}</div>
+      <div class="song-duration">
+        <small class="text-muted">{{ song.duration }}</small>
+      </div>
+    </div>
+  </div>
+</div>

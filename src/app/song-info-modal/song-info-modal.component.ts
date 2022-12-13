@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { SongListComponent } from '../song-list/song-list.component';
 import { SongInfoModalService } from '../song-info-modal.service';
 import { SongService } from '../song.service';
 
@@ -19,7 +20,7 @@ export class SongInfoModalComponent implements OnInit {
   display$!: Observable<'open' | 'close'>;
   constructor(
     private songService: SongService,
-    private appComponent: AppComponent,
+    private songListComponent: SongListComponent,
     private modalService: SongInfoModalService
   ) {}
 
@@ -31,7 +32,7 @@ export class SongInfoModalComponent implements OnInit {
     this.songService.deleteSong(this.songId).subscribe({
       next: (response: void) => {
         console.log(response);
-        this.appComponent.ngOnInit();
+        this.songListComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);

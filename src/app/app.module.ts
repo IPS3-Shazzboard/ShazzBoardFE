@@ -12,6 +12,7 @@ import { ManualAddSongModalComponent } from './manual-add-song-modal/manual-add-
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { SongListComponent } from './song-list/song-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     AuthButtonComponent,
     AuthButtonComponent,
     UserProfileComponent,
+    SongListComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,14 +30,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    MdbModalModule,
-    MdbFormsModule,
+    // MdbModalModule,
+    // MdbFormsModule,
     AuthModule.forRoot({
       domain: 'dev-ellgwv75kcdizwbh.eu.auth0.com',
       clientId: 'v8nEdHDsGDAEkpltmDODBs9v51Jpvtth',
     }),
   ],
-  providers: [AppComponent],
+  providers: [AppComponent, SongListComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
