@@ -30,13 +30,12 @@ export class ManualAddSongModalComponent implements OnInit {
     this.songService.addSong(this.song).subscribe({
       next: (response: Song) => {
         console.log(response);
-        // this.songListComponent.ngOnInit();
+        this.songListComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
       },
     });
-    this.songListComponent.ngOnInit();
   }
 
   close() {
