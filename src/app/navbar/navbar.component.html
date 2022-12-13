@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#">ShazzBoard</a>
+  </div>
+  <div id="navbarMenu" class="navbar-menu">
+    <div class="navbar-start">
+      <a
+        class="navbar-item"
+        (click)="openManualAddSongModal()"
+        *ngIf="auth.user$ | async as user"
+      >
+        Add song (manual)
+      </a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <app-user-profile></app-user-profile>
+      </div>
+      <div class="buttons">
+        <!-- <a class="button is-primary"> Sign up </a> -->
+        <!-- <a class="button is-light"> Log in </a> -->
+        <app-auth-button></app-auth-button>
+      </div>
+    </div>
+  </div>
+</nav>

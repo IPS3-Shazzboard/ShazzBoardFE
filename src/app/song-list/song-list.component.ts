@@ -25,9 +25,7 @@ export class SongListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('refresh1');
     this.getSongs();
-    console.log('refresh2');
   }
 
   public getSongs(): void {

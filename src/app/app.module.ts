@@ -13,6 +13,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SongListComponent } from './song-list/song-list.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SongListComponent } from './song-list/song-list.component';
     AuthButtonComponent,
     UserProfileComponent,
     SongListComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
