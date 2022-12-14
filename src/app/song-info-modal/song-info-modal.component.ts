@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppComponent } from '../app.component';
 import { SongListComponent } from '../song-list/song-list.component';
 import { SongInfoModalService } from '../song-info-modal.service';
 import { SongService } from '../song.service';

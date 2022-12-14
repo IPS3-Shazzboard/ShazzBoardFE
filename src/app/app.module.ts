@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
-import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +13,7 @@ import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SongListComponent } from './song-list/song-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,14 +32,18 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    // MdbModalModule,
-    // MdbFormsModule,
     AuthModule.forRoot({
-      domain: 'dev-ellgwv75kcdizwbh.eu.auth0.com',
-      clientId: 'v8nEdHDsGDAEkpltmDODBs9v51Jpvtth',
+      ...environment.auth,
+      httpInterceptor: {
+        allowedList: ['http://localhost:8081/*'],
+      },
     }),
   ],
-  providers: [AppComponent, SongListComponent],
+  providers: [
+    AppComponent,
+    SongListComponent,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
