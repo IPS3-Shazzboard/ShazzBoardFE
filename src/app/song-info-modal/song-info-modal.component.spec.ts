@@ -1,7 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SongInfoModalComponent } from './song-info-modal.component';
 import { AppComponent } from '../app.component';
+import { SongListComponent } from '../song-list/song-list.component';
+import { SongService } from '../song.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Song } from '../song';
+import { of } from 'rxjs';
 
 describe('SongInfoModalComponent', () => {
   let component: SongInfoModalComponent;
@@ -16,6 +21,7 @@ describe('SongInfoModalComponent', () => {
         HttpHandler,
         AppComponent,
         SongInfoModalComponent,
+        SongListComponent,
       ],
     }).compileComponents();
 
@@ -31,7 +37,7 @@ describe('SongInfoModalComponent', () => {
   it('should call deleteSongEntry method', () => {
     let service = TestBed.inject(SongInfoModalComponent);
     spy = spyOn(service, 'deleteSongEntry');
-    service.deleteSongEntry();
+    service.deleteSongEntry(1);
     expect(spy).toHaveBeenCalled();
   });
 

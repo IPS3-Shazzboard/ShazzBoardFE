@@ -1,9 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Song } from './song';
-import { SongService } from './song.service';
-import { ManualAddSongModalService } from './manual-add-song-modal.service';
-import { SongInfoModalService } from './song-info-modal.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-root',
@@ -12,45 +8,8 @@ import { SongInfoModalService } from './song-info-modal.service';
 })
 export class AppComponent implements OnInit {
   title = 'ShazzBoardFE';
-  public songs: Song[] | undefined;
-  songId!: number;
-  songName!: string;
-  songArtist!: string;
-  songDuration!: string;
-  songCoverArt!: string;
 
-  constructor(
-    private songService: SongService,
-    private ManualAddSongModalService: ManualAddSongModalService,
-    private songInfoModalService: SongInfoModalService
-  ) {}
+  constructor(public auth: AuthService) {}
 
-  ngOnInit() {
-    this.getSongs();
-  }
-
-  public getSongs(): void {
-    this.songService.getSongs().subscribe({
-      next: (response: Song[]) => {
-        this.songs = response;
-        console.log(this.songs);
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.message);
-      },
-    });
-  }
-
-  openSongInfoModal(item: any) {
-    this.songId = item.id;
-    this.songName = item.name;
-    this.songArtist = item.artist;
-    this.songDuration = item.duration;
-    this.songCoverArt = item.coverArt;
-    this.songInfoModalService.open();
-  }
-
-  openManualAddSongModal() {
-    this.ManualAddSongModalService.open();
-  }
+  ngOnInit() {}
 }

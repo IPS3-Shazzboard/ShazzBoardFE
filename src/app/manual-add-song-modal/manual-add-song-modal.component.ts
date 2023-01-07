@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from '../song';
 import { SongService } from '../song.service';
 import { AppComponent } from '../app.component';
+import { SongListComponent } from '../song-list/song-list.component';
 import { ManualAddSongModalService } from '../manual-add-song-modal.service';
 import { Observable } from 'rxjs';
 
@@ -17,7 +18,7 @@ export class ManualAddSongModalComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private appComponent: AppComponent,
+    private songListComponent: SongListComponent,
     private modalService: ManualAddSongModalService
   ) {}
 
@@ -29,10 +30,25 @@ export class ManualAddSongModalComponent implements OnInit {
     this.songService.addSong(this.song).subscribe({
       next: (response: Song) => {
         console.log(response);
-        this.appComponent.ngOnInit();
+        this.songListComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        switch (error.status) {
+          case 400:
+            alert(
+              'Invalid song entry. Please check if all input fields are correctly filled in.'
+            );
+            break;
+          case 409:
+            alert(
+              'Song with name \x22' +
+                error.error.name +
+                '\x22 and artist \x22' +
+                error.error.artist +
+                '\x22 already exists.'
+            );
+            break;
+        }
       },
     });
   }
