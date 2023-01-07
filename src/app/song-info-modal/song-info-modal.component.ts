@@ -27,7 +27,7 @@ export class SongInfoModalComponent implements OnInit {
     this.display$ = this.modalService.watch();
   }
 
-  deleteSongEntry(): void {
+  deleteSongEntry(id: number): void {
     this.songService.deleteSong(this.songId).subscribe({
       next: (response: void) => {
         console.log(response);

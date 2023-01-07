@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 import { UserProfileComponent } from './user-profile.component';
 
@@ -8,9 +10,16 @@ describe('UserProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserProfileComponent ]
-    })
-    .compileComponents();
+      declarations: [UserProfileComponent],
+      imports: [
+        AuthModule.forRoot({
+          ...environment.auth,
+          httpInterceptor: {
+            allowedList: ['http://localhost:8081/*'],
+          },
+        }),
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;

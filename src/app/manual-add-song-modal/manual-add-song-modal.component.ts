@@ -33,7 +33,22 @@ export class ManualAddSongModalComponent implements OnInit {
         this.songListComponent.ngOnInit();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        switch (error.status) {
+          case 400:
+            alert(
+              'Invalid song entry. Please check if all input fields are correctly filled in.'
+            );
+            break;
+          case 409:
+            alert(
+              'Song with name \x22' +
+                error.error.name +
+                '\x22 and artist \x22' +
+                error.error.artist +
+                '\x22 already exists.'
+            );
+            break;
+        }
       },
     });
   }
