@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClient, HttpHandler, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHandler,
+  HttpResponse,
+} from '@angular/common/http';
 import { ManualAddSongModalComponent } from './manual-add-song-modal.component';
 import { AppComponent } from '../app.component';
 import { ManualAddSongModalService } from '../manual-add-song-modal.service';
@@ -7,7 +12,7 @@ import { SongListComponent } from '../song-list/song-list.component';
 import { SongService } from '../song.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Song } from '../song';
-import { of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 import { Auth0Client } from '@auth0/auth0-spa-js';
@@ -97,7 +102,7 @@ describe('AddSongEntry', () => {
     fixture.detectChanges();
   });
 
-  it('should call notification toast', () => {
+  it('should call notification toast with valid entry', () => {
     let mockNotificationToast = TestBed.inject(NotificationToastComponent);
     notificationSpy = spyOn(mockNotificationToast, 'showNotification');
     mockNotificationToast = jasmine.createSpyObj('NotificationToastComponent', [
@@ -119,6 +124,51 @@ describe('AddSongEntry', () => {
     addSongSpy = mockSongService.addSong
       .withArgs(mockNewSong)
       .and.returnValue(of(mockResponse));
+    component.song = mockNewSong;
+    component.addSongEntry();
+    fixture.detectChanges();
+
+    expect(addSongSpy).toHaveBeenCalled();
+    expect(notificationSpy).toHaveBeenCalled();
+  });
+
+  it('should call notification toast with invalid input', () => {
+    let mockNotificationToast = TestBed.inject(NotificationToastComponent);
+    notificationSpy = spyOn(mockNotificationToast, 'showNotification');
+    mockNotificationToast = jasmine.createSpyObj('NotificationToastComponent', [
+      'showNotification',
+    ]);
+    const mockNewSong: Song = new Song('song1', 'artist1', 'duration', '');
+    addSongSpy = mockSongService.addSong
+      .withArgs(mockNewSong)
+      .and.returnValue(
+        throwError(() => new HttpErrorResponse({ status: 400 }))
+      );
+    component.song = mockNewSong;
+    component.addSongEntry();
+    fixture.detectChanges();
+
+    expect(addSongSpy).toHaveBeenCalled();
+    expect(notificationSpy).toHaveBeenCalled();
+  });
+
+  it('should call notification toast with duplicate entry', () => {
+    let mockNotificationToast = TestBed.inject(NotificationToastComponent);
+    notificationSpy = spyOn(mockNotificationToast, 'showNotification');
+    mockNotificationToast = jasmine.createSpyObj('NotificationToastComponent', [
+      'showNotification',
+    ]);
+    const mockNewSong: Song = new Song(
+      'song1',
+      'artist1',
+      'duration',
+      'coverArt'
+    );
+    addSongSpy = mockSongService.addSong
+      .withArgs(mockNewSong)
+      .and.returnValue(
+        throwError(() => new HttpErrorResponse({ status: 409 }))
+      );
     component.song = mockNewSong;
     component.addSongEntry();
     fixture.detectChanges();
