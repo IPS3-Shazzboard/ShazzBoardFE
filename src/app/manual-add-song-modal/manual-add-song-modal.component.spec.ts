@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpResponse } from '@angular/common/http';
 import { ManualAddSongModalComponent } from './manual-add-song-modal.component';
 import { AppComponent } from '../app.component';
 import { ManualAddSongModalService } from '../manual-add-song-modal.service';
@@ -8,6 +8,12 @@ import { SongService } from '../song.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Song } from '../song';
 import { of } from 'rxjs';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
+import { Auth0Client } from '@auth0/auth0-spa-js';
+import { NotificationToastComponent } from '../notification-toast/notification-toast.component';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 describe('ManualAddSongModalComponent', () => {
   let component: ManualAddSongModalComponent;
@@ -23,6 +29,14 @@ describe('ManualAddSongModalComponent', () => {
         AppComponent,
         ManualAddSongModalComponent,
         SongListComponent,
+        NotificationToastComponent,
+      ],
+      imports: [
+        FormsModule,
+        ToastrModule.forRoot({
+          timeOut: 10000,
+          positionClass: 'toast-bottom-right',
+        }),
       ],
     }).compileComponents();
 
@@ -50,86 +64,66 @@ describe('ManualAddSongModalComponent', () => {
   });
 });
 
-describe('SongListDeleteEntry', () => {
-  let songListFixture: ComponentFixture<SongListComponent>;
-  let manualAddSongModalFixture: ComponentFixture<ManualAddSongModalComponent>;
-  let songListComponent: SongListComponent;
-  let manualAddSongModalComponent: ManualAddSongModalComponent;
+describe('AddSongEntry', () => {
+  let component: ManualAddSongModalComponent;
+  let fixture: ComponentFixture<ManualAddSongModalComponent>;
+  let notificationSpy: any;
+  let addSongSpy: any;
   let mockSongService: jasmine.SpyObj<SongService>;
 
   beforeEach(async () => {
-    mockSongService = jasmine.createSpyObj('SongService', [
-      'AddSong',
-      'getSongs',
-    ]);
+    mockSongService = jasmine.createSpyObj('SongService', ['addSong']);
     await TestBed.configureTestingModule({
-      declarations: [SongListComponent, ManualAddSongModalComponent],
-      imports: [HttpClientTestingModule],
+      declarations: [ManualAddSongModalComponent],
       providers: [
-        { provide: SongService, useValue: mockSongService },
+        HttpClient,
+        HttpHandler,
+        AppComponent,
+        ManualAddSongModalComponent,
         SongListComponent,
+        NotificationToastComponent,
+        { provide: SongService, useValue: mockSongService },
+      ],
+      imports: [
+        ToastrModule.forRoot({
+          timeOut: 10000,
+          positionClass: 'toast-bottom-right',
+        }),
       ],
     }).compileComponents();
-    songListFixture = TestBed.createComponent(SongListComponent);
-    manualAddSongModalFixture = TestBed.createComponent(
-      ManualAddSongModalComponent
-    );
-    songListComponent = songListFixture.componentInstance;
-    manualAddSongModalComponent = manualAddSongModalFixture.componentInstance;
+
+    fixture = TestBed.createComponent(ManualAddSongModalComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('should correctly add a song entry', waitForAsync(() => {
-    const mockSongListBeforeAddition: Song[] = [
-      {
-        name: 'song1',
-        artist: 'artist1',
-        duration: 'duration1',
-        coverArt: 'cover1',
-        id: 1,
-      },
-      {
-        name: 'song2',
-        artist: 'artist2',
-        duration: 'duration2',
-        coverArt: 'cover2',
-        id: 2,
-      },
-    ];
-    const mockSongListAfterAddition: Song[] = [
-      {
-        name: 'song1',
-        artist: 'artist1',
-        duration: 'duration1',
-        coverArt: 'cover1',
-        id: 1,
-      },
-      {
-        name: 'song2',
-        artist: 'artist2',
-        duration: 'duration2',
-        coverArt: 'cover2',
-        id: 2,
-      },
-      {
-        name: 'song3',
-        artist: 'artist3',
-        duration: 'duration3',
-        coverArt: 'cover3',
-        id: 3,
-      },
-    ];
-    const getSongsSpyBeforeDeletion = mockSongService.getSongs.and.returnValue(
-      of(mockSongListBeforeAddition)
+  it('should call notification toast', () => {
+    let mockNotificationToast = TestBed.inject(NotificationToastComponent);
+    notificationSpy = spyOn(mockNotificationToast, 'showNotification');
+    mockNotificationToast = jasmine.createSpyObj('NotificationToastComponent', [
+      'showNotification',
+    ]);
+    const mockNewSong: Song = new Song(
+      'song1',
+      'artist1',
+      'duration',
+      'coverArt'
     );
-    songListComponent.getSongs();
-    const getSongsSpyAfterDeletion = mockSongService.getSongs.and.returnValue(
-      of(mockSongListAfterAddition)
+    const mockResponse: Song = new Song(
+      'song1',
+      'artist1',
+      'duration',
+      'coverArt',
+      1
     );
-    songListFixture.detectChanges();
+    addSongSpy = mockSongService.addSong
+      .withArgs(mockNewSong)
+      .and.returnValue(of(mockResponse));
+    component.song = mockNewSong;
+    component.addSongEntry();
+    fixture.detectChanges();
 
-    expect(getSongsSpyBeforeDeletion).toHaveBeenCalled();
-    expect(getSongsSpyAfterDeletion).toHaveBeenCalled();
-    expect(songListComponent.songs).not.toBeNull();
-    expect(songListComponent.songs).toEqual(mockSongListAfterAddition);
-  }));
+    expect(addSongSpy).toHaveBeenCalled();
+    expect(notificationSpy).toHaveBeenCalled();
+  });
 });
