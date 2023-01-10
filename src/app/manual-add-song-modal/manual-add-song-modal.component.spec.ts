@@ -1,21 +1,15 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHandler,
-  HttpResponse,
 } from '@angular/common/http';
 import { ManualAddSongModalComponent } from './manual-add-song-modal.component';
 import { AppComponent } from '../app.component';
-import { ManualAddSongModalService } from '../manual-add-song-modal.service';
 import { SongListComponent } from '../song-list/song-list.component';
 import { SongService } from '../song.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Song } from '../song';
-import { Observable, of, throwError } from 'rxjs';
-import { AuthModule } from '@auth0/auth0-angular';
-import { environment } from 'src/environments/environment';
-import { Auth0Client } from '@auth0/auth0-spa-js';
+import { of, throwError } from 'rxjs';
 import { NotificationToastComponent } from '../notification-toast/notification-toast.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';

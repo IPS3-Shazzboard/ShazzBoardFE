@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Toast, ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Song } from '../song';
 
 import { NotificationToastComponent } from './notification-toast.component';
@@ -10,10 +10,6 @@ describe('NotificationToastComponent', () => {
   let toastrService: ToastrService;
 
   beforeEach(async () => {
-    // toastrService = jasmine.createSpyObj<ToastrService>('ToastrService', [
-    //   'error',
-    //   'success',
-    // ]);
     await TestBed.configureTestingModule({
       declarations: [NotificationToastComponent],
       providers: [{ provide: toastrService, useValue: ToastrService }],
