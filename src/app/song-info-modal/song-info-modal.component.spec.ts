@@ -3,10 +3,6 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SongInfoModalComponent } from './song-info-modal.component';
 import { AppComponent } from '../app.component';
 import { SongListComponent } from '../song-list/song-list.component';
-import { SongService } from '../song.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Song } from '../song';
-import { of } from 'rxjs';
 
 describe('SongInfoModalComponent', () => {
   let component: SongInfoModalComponent;
